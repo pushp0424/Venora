@@ -23,7 +23,7 @@ type VenueRow = {
 
 function mapRowToVenue(row: VenueRow): Venue {
   return {
-    id: row.id,
+    id: String(row.id),
     name: row.name,
     city: row.city,
     location: row.location,
@@ -82,7 +82,8 @@ export async function getVenueById(id: string): Promise<Venue | null> {
       .select("*")
       .eq("id", id)
       .maybeSingle();
-
+console.log("ID:", id);
+console.log("DATA:", data);
     if (error || !data) {
       return null;
     }

@@ -7,7 +7,9 @@ import VenueBooking from "@/components/VenueBooking";
 import { getVenueById, getVenues } from "@/lib/venues";
 
 type PageProps = {
-  params: { id: string };
+  params: Promise<{
+    id: string;
+  }>;
 };
 
 export async function generateStaticParams() {
@@ -16,7 +18,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } =  params;
+  const { id } = await params;
   const venue = await getVenueById(id);
 
   if (!venue) {
@@ -38,7 +40,7 @@ function StarIcon({ className }: { className?: string }) {
 }
 
 export default async function VenueDetailPage({ params }: PageProps) {
-  const { id } = params;
+  const { id } = await params;
   const venue = await getVenueById(id);
 
   if (!venue) {
