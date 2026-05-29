@@ -6,6 +6,7 @@ import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import SuccessToast from "@/components/dashboard/SuccessToast";
 import { useVendorVenues } from "@/context/VendorVenuesContext";
 import { dashboardStats, recentBookings } from "@/data/dashboard";
+import { hostSidebarNav } from "@/data/hostDashboard";
 
 function statusStyles(status: string) {
   switch (status) {
@@ -35,9 +36,11 @@ export default function DashboardShell() {
 
   return (
     <DashboardLayout
-      title="Dashboard"
-      subtitle="Welcome back, Vendor"
-      activePath="/dashboard"
+      title="Host Dashboard"
+      subtitle="Welcome back, Host"
+      activePath="/host/dashboard"
+      dashboardRoot="/host/dashboard"
+      navItems={hostSidebarNav}
     >
       {successMessage ? (
         <SuccessToast
@@ -74,7 +77,7 @@ export default function DashboardShell() {
             </p>
           </div>
           <Link
-            href="/dashboard/add-venue"
+            href="/host/dashboard/add-venue"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-neutral-700"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden>

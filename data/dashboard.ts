@@ -143,10 +143,11 @@ export const recentBookings: RecentBooking[] = [
   },
 ];
 
+/** @deprecated Use hostSidebarNav from @/data/hostDashboard */
 export const sidebarNav = [
-  { label: "Dashboard", href: "/dashboard", icon: "grid" },
-  { label: "My Venues", href: "/dashboard#venues", icon: "building" },
-  { label: "Bookings", href: "/dashboard#bookings", icon: "calendar" },
-  { label: "Analytics", href: "/dashboard#analytics", icon: "chart" },
-  { label: "Settings", href: "/dashboard#settings", icon: "settings" },
+  { label: "Dashboard", href: "/host/dashboard", icon: "grid" },
+  { label: "My Venues", href: "/host/dashboard#venues", icon: "building" },
+  { label: "Bookings", href: "/host/dashboard#bookings", icon: "calendar" },
+  { label: "Analytics", href: "/host/dashboard#analytics", icon: "chart" },
+  { label: "Settings", href: "/host/dashboard#settings", icon: "settings" },
 ] as const;

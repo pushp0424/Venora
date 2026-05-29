@@ -174,13 +174,13 @@ export default function AddVenueForm() {
     setSuccessMessage(
       `${formData.name.trim()} was added to your venues successfully.`
     );
-    router.push("/dashboard");
+    router.push("/host/dashboard");
   };
 
   return (
     <form onSubmit={handleSubmit} noValidate className="mx-auto max-w-3xl">
       <Link
-        href="/dashboard"
+        href="/host/dashboard"
         className="mb-8 inline-flex items-center gap-2 text-sm text-neutral-500 transition-colors hover:text-neutral-900"
       >
         <span aria-hidden>←</span>
@@ -345,7 +345,7 @@ export default function AddVenueForm() {
 
         <div className="mt-10 flex flex-col-reverse gap-3 border-t border-neutral-100 pt-8 sm:flex-row sm:justify-end">
           <Link
-            href="/dashboard"
+            href="/host/dashboard"
             className="inline-flex items-center justify-center rounded-full border border-neutral-200 px-6 py-3 text-sm font-semibold text-neutral-900 transition-all hover:bg-neutral-50"
           >
             Cancel

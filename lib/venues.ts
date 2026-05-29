@@ -1,42 +1,11 @@
 import type { Venue } from "@/data/venues";
+import { mapRowToVenue, type VenueRow } from "@/lib/venues-map";
 import { createSupabaseClient, isSupabaseConfigured } from "@/lib/supabase";
 
 export type VenuesResult = {
   data: Venue[];
   error: string | null;
 };
-
-type VenueRow = {
-  id: string;
-  name: string;
-  city: string;
-  location: string;
-  price: string;
-  price_amount: number;
-  rating: string;
-  image: string;
-  tag: string;
-  description: string;
-  capacity: string;
-  capacity_max: number;
-};
-
-function mapRowToVenue(row: VenueRow): Venue {
-  return {
-    id: String(row.id),
-    name: row.name,
-    city: row.city,
-    location: row.location,
-    price: row.price,
-    priceAmount: row.price_amount,
-    rating: row.rating,
-    image: row.image,
-    tag: row.tag,
-    description: row.description,
-    capacity: row.capacity,
-    capacityMax: row.capacity_max,
-  };
-}
 
 export async function getVenues(): Promise<VenuesResult> {
   if (!isSupabaseConfigured()) {
@@ -52,6 +21,7 @@ export async function getVenues(): Promise<VenuesResult> {
     const { data, error } = await supabase
       .from("venues")
       .select("*")
+      .eq("status", "approved")
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -81,9 +51,9 @@ export async function getVenueById(id: string): Promise<Venue | null> {
       .from("venues")
       .select("*")
       .eq("id", id)
+      .eq("status", "approved")
       .maybeSingle();
-console.log("ID:", id);
-console.log("DATA:", data);
+
     if (error || !data) {
       return null;
     }

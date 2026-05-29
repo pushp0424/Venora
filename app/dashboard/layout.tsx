@@ -1,9 +1,10 @@
-import { VendorVenuesProvider } from "@/context/VendorVenuesContext";
+import { requireClient } from "@/lib/auth";
 
-export default function DashboardLayout({
+export default async function ClientDashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <VendorVenuesProvider>{children}</VendorVenuesProvider>;
+  await requireClient();
+  return children;
 }

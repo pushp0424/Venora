@@ -31,8 +31,10 @@ export default function VenueCard({
   className,
 }: VenueCardProps) {
   const card = (
-    <article className={`group animate-fade-in-up cursor-pointer ${className ?? ""}`}>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-neutral-100">
+    <article
+      className={`group h-full cursor-pointer ${className ? `animate-fade-in-up ${className}` : ""}`}
+    >
+      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-neutral-100 shadow-sm ring-1 ring-black/5 transition-shadow duration-300 group-hover:shadow-md">
         <Image
           src={image}
           alt={title}

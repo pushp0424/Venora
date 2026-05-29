@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
-import DashboardShell from "@/components/dashboard/DashboardShell";
+import ClientDashboardShell from "@/components/dashboard/ClientDashboardShell";
+import { requireClient } from "@/lib/auth";
 
 export const metadata: Metadata = {
-  title: "Vendor Dashboard — Venora",
-  description: "Manage your venues, bookings, and performance on Venora.",
+  title: "Dashboard — Venora",
+  description: "Manage your saved venues and bookings on Venora.",
 };
 
-export default function DashboardPage() {
-  return <DashboardShell />;
+export default async function ClientDashboardPage() {
+  const profile = await requireClient();
+  return <ClientDashboardShell profile={profile} />;
 }

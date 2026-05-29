@@ -1,14 +1,19 @@
 import { Suspense } from "react";
+import BrowseByEventType from "@/components/BrowseByEventType";
 import FeaturedVenues from "@/components/FeaturedVenues";
 import FeaturedVenuesSkeleton from "@/components/FeaturedVenuesSkeleton";
+import AIPlannerSection from "@/components/AIPlannerSection";
+import BecomeAHostSection from "@/components/BecomeAHostSection";
 import HeroSection from "@/components/HeroSection";
 import Navbar from "@/components/Navbar";
+import TestimonialsSection from "@/components/TestimonialsSection";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white text-neutral-900">
       <Navbar />
       <HeroSection />
+      <BrowseByEventType />
 
       {/* How it works strip */}
       <section
@@ -41,61 +46,12 @@ export default function Home() {
         <FeaturedVenues />
       </Suspense>
 
-      {/* CTA */}
-      <section className="mx-6 mb-20 lg:mx-8 lg:mb-28">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-neutral-950 px-8 py-16 text-center text-white sm:px-16 sm:py-24">
-          <div
-            className="pointer-events-none absolute inset-0 opacity-20"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 30% 50%, rgba(255,255,255,0.2), transparent 50%)",
-            }}
-          />
-          <h2 className="relative text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
-            Ready to host something
-            <br className="hidden sm:block" />
-            extraordinary?
-          </h2>
-          <p className="relative mx-auto mt-4 max-w-lg text-neutral-400">
-            Join thousands of planners who book with confidence. List your venue
-            or start exploring today.
-          </p>
-          <div className="relative mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href="#venues"
-              className="w-full rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-neutral-900 transition-all hover:bg-neutral-100 hover:shadow-lg sm:w-auto"
-            >
-              Explore venues
-            </a>
-            <a
-              href="#"
-              className="w-full rounded-full border border-neutral-600 px-8 py-3.5 text-sm font-semibold text-white transition-all hover:border-neutral-400 hover:bg-white/5 sm:w-auto"
-            >
-              Become a host
-            </a>
-          </div>
-        </div>
-      </section>
-      <section className="py-24">
-  <h2 className="text-5xl font-bold mb-4">
-    Plan your event with AI
-  </h2>
+      <TestimonialsSection />
 
-  <p className="text-gray-500 mb-8">
-    Describe your dream event and Venora will curate venues instantly.
-  </p>
+      <BecomeAHostSection />
 
-  <div className="rounded-3xl border p-6 bg-white shadow-xl">
-    <input
-      className="w-full border rounded-xl p-4"
-      placeholder="Need a rooftop venue for 150 guests under $3000"
-    />
+      <AIPlannerSection />
 
-    <button className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-xl">
-      Generate Recommendations
-    </button>
-  </div>
-</section>
       {/* Footer */}
       <footer className="border-t border-neutral-200 bg-white">
         <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">

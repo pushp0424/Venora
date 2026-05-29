@@ -63,14 +63,40 @@ body {
 .delay-500 {
   animation-delay: 500ms;
 }
+.delay-600 {
+  animation-delay: 600ms;
+}
+
+@keyframes hero-bg-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-hero-bg {
+  animation: hero-bg-zoom 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 
 html {
   scroll-behavior: smooth;
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up,
-  .animate-fade-in {
+  .animate-fade-in,
+  .animate-hero-bg {
     animation: none;
     opacity: 1;
     transform: none;

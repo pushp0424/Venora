@@ -1,7 +1,5 @@
-import VenueCard from "@/components/VenueCard";
+import FeaturedVenuesCarousel from "@/components/FeaturedVenuesCarousel";
 import type { Venue } from "@/data/venues";
-
-const animationDelays = ["delay-200", "delay-300", "delay-400", "delay-500"];
 
 type FeaturedVenuesGridProps = {
   venues: Venue[];
@@ -32,20 +30,8 @@ export default function FeaturedVenuesGrid({ venues }: FeaturedVenuesGridProps) 
           </a>
         </div>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {venues.map((venue, i) => (
-            <VenueCard
-              key={venue.id}
-              id={venue.id}
-              image={venue.image}
-              title={venue.name}
-              location={venue.location}
-              price={venue.price}
-              rating={venue.rating}
-              tag={venue.tag}
-              className={animationDelays[i % animationDelays.length]}
-            />
-          ))}
+        <div className="mt-12 md:px-6">
+          <FeaturedVenuesCarousel venues={venues} />
         </div>
       </div>
     </section>

@@ -2,9 +2,23 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { sidebarNav } from "@/data/dashboard";
+import SignOutButton from "@/components/auth/SignOutButton";
 
-function NavIcon({ icon }: { icon: (typeof sidebarNav)[number]["icon"] }) {
+export type DashboardNavIcon =
+  | "grid"
+  | "building"
+  | "calendar"
+  | "chart"
+  | "settings"
+  | "users";
+
+export type DashboardNavItem = {
+  label: string;
+  href: string;
+  icon: DashboardNavIcon;
+};
+
+function NavIcon({ icon }: { icon: DashboardNavIcon }) {
   const className = "h-5 w-5 shrink-0";
 
   switch (icon) {
@@ -39,28 +53,44 @@ function NavIcon({ icon }: { icon: (typeof sidebarNav)[number]["icon"] }) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
         </svg>
       );
+    case "users":
+      return (
+        <svg className={className} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" aria-hidden>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+        </svg>
+      );
   }
 }
 
-function isNavActive(href: string, activePath: string) {
-  if (href === "/dashboard") return activePath === "/dashboard";
-  return activePath.startsWith(href.split("#")[0]) && href !== "/dashboard";
+function isNavActive(href: string, activePath: string, dashboardRoot: string) {
+  const base = href.split("#")[0];
+  if (base === dashboardRoot) {
+    return activePath === dashboardRoot;
+  }
+  return activePath.startsWith(base) || activePath === href;
 }
 
 type DashboardLayoutProps = {
   title: string;
   subtitle?: string;
   activePath?: string;
+  dashboardRoot: string;
+  navItems: readonly DashboardNavItem[];
+  userInitial?: string;
   children: React.ReactNode;
 };
 
 export default function DashboardLayout({
   title,
   subtitle,
-  activePath = "/dashboard",
+  activePath,
+  dashboardRoot,
+  navItems,
+  userInitial = "V",
   children,
 }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const resolvedActivePath = activePath ?? dashboardRoot;
 
   return (
     <div className="min-h-screen bg-neutral-50 text-neutral-900">
@@ -89,15 +119,15 @@ export default function DashboardLayout({
         </div>
 
         <nav className="flex-1 space-y-1 px-4 py-6">
-          {sidebarNav.map((item) => (
+          {navItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
               onClick={() => setSidebarOpen(false)}
               className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
-                isNavActive(item.href, activePath)
-                  ? "bg-white text-neutral-900"
-                  : "text-neutral-400 hover:bg-neutral-800 hover:text-white"
+                isNavActive(item.href, resolvedActivePath, dashboardRoot)
+                  ? "bg-[#D4AF37] text-black"
+                  : "text-neutral-400 hover:bg-neutral-800 hover:text-[#D4AF37]"
               }`}
             >
               <NavIcon icon={item.icon} />
@@ -106,7 +136,7 @@ export default function DashboardLayout({
           ))}
         </nav>
 
-        <div className="border-t border-neutral-800 p-4">
+        <div className="space-y-1 border-t border-neutral-800 p-4">
           <Link
             href="/"
             onClick={() => setSidebarOpen(false)}
@@ -117,6 +147,9 @@ export default function DashboardLayout({
             </svg>
             Back to site
           </Link>
+          <div className="px-4 py-2">
+            <SignOutButton className="text-sm font-medium text-neutral-400 transition-colors hover:text-[#D4AF37]" />
+          </div>
         </div>
       </aside>
 
@@ -140,8 +173,8 @@ export default function DashboardLayout({
               ) : null}
             </div>
           </div>
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-900 text-sm font-semibold text-white">
-            V
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-900 text-sm font-semibold text-[#D4AF37]">
+            {userInitial}
           </div>
         </header>
 
