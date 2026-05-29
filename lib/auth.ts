@@ -2,13 +2,18 @@ import type { UserRole, UserProfile } from "@/data/user";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase";
 
+import { normalizeUserRole } from "@/lib/auth/roles";
+
 export {
   getDashboardPathForRole,
   isRoleAllowedOnPath,
   isProtectedDashboardPath,
   isAdminPath,
+  isAdminLoginPath,
+  isAdminProtectedPath,
   isHostPath,
   isClientPath,
+  normalizeUserRole,
 } from "@/lib/auth/roles";
 
 export {
@@ -33,7 +38,7 @@ function mapProfile(row: ProfileRow): UserProfile {
     id: row.id,
     email: row.email,
     fullName: row.full_name,
-    role: row.role,
+    role: normalizeUserRole(row.role),
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };

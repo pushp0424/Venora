@@ -2,10 +2,9 @@
 
 import { redirect } from "next/navigation";
 import type { AuthActionState, SignUpPayload } from "@/app/auth/types";
-import type { UserRole } from "@/data/user";
 import { SIGNUP_ROLES } from "@/data/user";
 import { getDashboardPathForRole } from "@/lib/auth";
-import { isRoleAllowedOnPath } from "@/lib/auth/roles";
+import { isRoleAllowedOnPath, normalizeUserRole } from "@/lib/auth/roles";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase";
 
@@ -103,7 +102,7 @@ export async function signInAction(
     .eq("id", data.user.id)
     .maybeSingle();
 
-  const role = (profile?.role as UserRole | undefined) ?? "client";
+  const role = normalizeUserRole(profile?.role);
   const defaultPath = getDashboardPathForRole(role);
 
   if (

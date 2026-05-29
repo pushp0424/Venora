@@ -23,7 +23,7 @@ export default async function AdminVenuesPage() {
       title="All venues"
       subtitle="Add, edit, approve, or remove listings"
       activePath="/admin/venues"
-      dashboardRoot="/admin"
+      dashboardRoot="/admin/dashboard"
       navItems={adminSidebarNav}
       userInitial={initial}
     >

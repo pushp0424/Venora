@@ -32,7 +32,7 @@ export default async function AdminBookingsPage() {
       title="All bookings"
       subtitle="Platform-wide reservation activity"
       activePath="/admin/bookings"
-      dashboardRoot="/admin"
+      dashboardRoot="/admin/dashboard"
       navItems={adminSidebarNav}
       userInitial={initial}
     >

@@ -23,7 +23,7 @@ export default async function AdminHostsPage() {
       title="Hosts"
       subtitle="Registered hosts and pending applications"
       activePath="/admin/hosts"
-      dashboardRoot="/admin"
+      dashboardRoot="/admin/dashboard"
       navItems={adminSidebarNav}
       userInitial={initial}
     >

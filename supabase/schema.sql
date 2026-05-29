@@ -1,3 +1,6 @@
+-- DEPRECATED: use ordered files in supabase/migrations/ instead.
+-- Canonical documentation: supabase/docs/DATABASE.md
+--
 -- Run this in the Supabase SQL Editor (Dashboard → SQL → New query)
 
 create table if not exists public.venues (

@@ -22,7 +22,7 @@ export default async function AdminContentPage() {
       title="Content management"
       subtitle="Edit marketing copy and site content blocks"
       activePath="/admin/content"
-      dashboardRoot="/admin"
+      dashboardRoot="/admin/dashboard"
       navItems={adminSidebarNav}
       userInitial={initial}
     >

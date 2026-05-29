@@ -1,7 +1,10 @@
 import { redirect } from "next/navigation";
 import type { UserProfile, UserRole } from "@/data/user";
 import { getCurrentUserProfile } from "@/lib/auth";
-import { getDashboardPathForRole } from "@/lib/auth/roles";
+import {
+  getDashboardPathForRole,
+  normalizeUserRole,
+} from "@/lib/auth/roles";
 
 export async function requireAuth(redirectTo: string): Promise<UserProfile> {
   const profile = await getCurrentUserProfile();
@@ -19,15 +22,29 @@ export async function requireRole(
 ): Promise<UserProfile> {
   const profile = await requireAuth(redirectTo);
 
-  if (!allowed.includes(profile.role)) {
-    redirect(getDashboardPathForRole(profile.role));
+  const role = normalizeUserRole(profile.role);
+  if (!allowed.includes(role)) {
+    redirect(getDashboardPathForRole(role));
   }
 
   return profile;
 }
 
 export async function requireAdmin(): Promise<UserProfile> {
-  return requireRole(["admin"], "/admin");
+  const profile = await getCurrentUserProfile();
+
+  if (!profile) {
+    redirect(
+      `/admin?redirectTo=${encodeURIComponent("/admin/dashboard")}`
+    );
+  }
+
+  const role = normalizeUserRole(profile.role);
+  if (role !== "admin") {
+    redirect(getDashboardPathForRole(role));
+  }
+
+  return profile;
 }
 
 export async function requireHost(): Promise<UserProfile> {

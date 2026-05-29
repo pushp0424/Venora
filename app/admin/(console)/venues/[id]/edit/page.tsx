@@ -33,7 +33,7 @@ export default async function AdminEditVenuePage({ params }: PageProps) {
       title="Edit venue"
       subtitle={venue.name}
       activePath="/admin/venues"
-      dashboardRoot="/admin"
+      dashboardRoot="/admin/dashboard"
       navItems={adminSidebarNav}
       userInitial={initial}
     >

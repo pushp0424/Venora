@@ -19,7 +19,7 @@ export default async function AdminNewVenuePage() {
       title="Add venue"
       subtitle="Create a new platform listing"
       activePath="/admin/venues"
-      dashboardRoot="/admin"
+      dashboardRoot="/admin/dashboard"
       navItems={adminSidebarNav}
       userInitial={initial}
     >
